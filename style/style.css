@@ -11,7 +11,7 @@
 }
 
 /* grid */
-html {
+.ctr {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 65px 65px repeat(7, 1fr);
@@ -20,11 +20,12 @@ html {
     "side"
     "traffic"
     "social"
-    "members"
-    "mesage"
     "setting";
 }
-
+.newM {
+  grid-area: members;
+  width: 100%;
+}
 /* top Nav */
 .top {
   display: flex;
@@ -112,7 +113,7 @@ html {
 
 /* dashboard */
 
-.dash .part {
+.part {
   box-sizing: border-box;
   width: 30%;
   height: 50px;
@@ -183,6 +184,7 @@ html {
   margin: 10px;
   padding: 0px;
 }
+
 .btn {
   color: black;
   text-decoration: none;
@@ -222,6 +224,9 @@ html {
 }
 .pie {
   grid-area: pie;
+  display: flex;
+  /* justify-content: center;
+  align-content: center; */
 }
 .pie .part {
   width: 150px;
@@ -286,11 +291,201 @@ html {
   font-weight: 100;
   color: gray;
 }
+.dash {
+  grid-area: traffic;
+}
 
+.newM {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+.img {
+  border-radius: 50%;
+  width: 85px;
+}
+.member {
+  width: 100%;
+  margin: 10px auto;
+  border-bottom: 1px solid black;
+}
+.member a {
+  color: #7477bf;
+  text-decoration: none;
+}
+.newMem {
+  width: auto;
+  height: 15px;
+  padding: 20px;
+  border: none;
+  margin: auto;
+  margin-left: 10px;
+}
+.user {
+  margin: 10px;
+  padding: 10px;
+  width: 90%;
+  height: 30px;
+  background-color: #f5f5f5;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+}
+.msg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.message {
+  margin: 10px;
+  padding: 10px;
+  width: 85%;
+  background-color: #f5f5f5;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+}
+.switch {
+  -webkit-appearance: none;
+  position: relative;
+  width: 100px;
+  height: 35px;
+  border-radius: 25px;
+  background-color: grey;
+  transition: background 0.3s;
+  outline: none;
+  cursor: pointer;
+  border: 3px solid lightgrey;
+}
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: white;
+  height: 1.25rem;
+  width: 1.25rem;
+  transition: left 0.3s;
+  border: 3px solid lightgrey;
+}
+.switch:checked {
+  background-color: #7477bf;
+}
+.switch:checked::after {
+  left: 80%;
+}
+.switch::before {
+  position: absolute;
+  content: "OFF";
+  left: 60%;
+  top: 27%;
+  color: white;
+}
+.switch:checked::before {
+  left: 15%;
+  content: "ON";
+}
+.settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cntr {
+  width: 400px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+.cntr * {
+  margin: 10px;
+}
+.submit {
+  margin-bottom: 10px;
+  width: 90%;
+  height: 45px;
+  border: none;
+  background-color: #7477bf;
+  color: white;
+  border-radius: 5px;
+}
+#time {
+  width: 90%;
+  height: 50px;
+  color: grey;
+  border: 2px solid lightgrey;
+  border-radius: 10px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%237477bf'><polygon points='0,0 100,0 50,50'/></svg>")
+    no-repeat;
+  background-size: 16px;
+  background-position: calc(100% - 20px) 17px;
+  background-repeat: no-repeat;
+  background-color: #f5f5f5;
+}
+
+select {
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 10px;
+  margin: 20px 0;
+}
+
+.btnd {
+  width: 45%;
+  height: 50px;
+  margin: auto;
+  color: white;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+}
+.s {
+  background-color: #7477bf;
+}
+.c {
+  background-color: #999999;
+}
+.button {
+  display: flex;
+  width: 90%;
+  margin-bottom: 20px;
+}
+.sets {
+  display: grid;
+  grid-area: setting;
+}
+.text {
+  width: 90%;
+  margin: 10px 0;
+}
+html {
+  margin: 0;
+  width: 100%;
+}
 @media only screen and (min-width: 768px) {
+  .ctr {
+    grid-template-columns: 65px 96%;
+    grid-template-rows: 65px repeat(5, auto);
+    grid-template-areas:
+      "top top"
+      "side traffic"
+      "side social"
+      "side members"
+      "side setting";
+  }
+  .side {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+  }
   .stats {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr 350px;
+    grid-template-rows: 1fr;
     grid-gap: 20px;
     grid-template-areas:
       "line line"
@@ -328,6 +523,29 @@ html {
   .buttonBox {
     margin: auto;
     margin-right: 20px;
+  }
+  .member {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+  }
+  .member * {
+    margin: auto 10px;
+  }
+  .member img {
+    margin: 20px;
+  }
+  .member .date {
+    margin: auto;
+    margin-right: 10px;
+    border: none;
+  }
+  .inf {
+    margin: auto 10px;
+  }
+  .cntr {
+    margin: auto;
+    margin-left: 10px;
   }
 }
 
