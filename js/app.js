@@ -3,7 +3,25 @@ const btnDaliy = document.querySelector(".daily");
 const btnWeekly = document.querySelector(".weekly");
 const btnMounthly = document.querySelector(".mounthly");
 const times = document.querySelector(".times");
+const bell = document.querySelector(".bell");
+const not = document.querySelector(".not");
+const ax = document.querySelector(".a");
+const bx = document.querySelector(".b");
+const cx = document.querySelector(".c");
+const fc = document.querySelector(".fc");
+const sc = document.querySelector(".sc");
+const tc = document.querySelector(".tc");
+const dot = document.querySelector(".dot");
+const submit = document.querySelector(".submit");
+const text = document.querySelector(".text");
+const errmsg = document.querySelector(".err-msg");
+const save = document.querySelector(".s");
+const cancle = document.querySelector(".cancle");
+const time = document.querySelector("#time");
+const prof = document.querySelector(".prof");
+const email = document.querySelector(".email");
 
+let show = false;
 let data = [];
 const ctx = document.getElementById("lineChart");
 const myChart = new Chart(ctx, {
@@ -164,3 +182,145 @@ const myChart_p = new Chart(ctx_p, {
     },
   },
 });
+
+function showf() {
+  if (show === false && cls !== 3) {
+    not.style.display = "flex";
+    show = true;
+  } else {
+    not.style.display = "none";
+    show = false;
+  }
+}
+function hide() {
+  if (cls === 3) {
+    not.style.display = "none";
+    dot.style.display = "none";
+  }
+}
+bell.addEventListener("click", () => {
+  showf();
+});
+let cls = 0;
+ax.addEventListener("click", () => {
+  fc.style.display = "none";
+  cls++;
+  hide();
+});
+bx.addEventListener("click", () => {
+  sc.style.display = "none";
+  cls++;
+  hide();
+});
+cx.addEventListener("click", () => {
+  tc.style.display = "none";
+  cls++;
+  hide();
+});
+
+// auto complete
+
+let words = ["Victoria Chambers", "dale bryd", "dan wood", "dan oliver"];
+const names = ["Victoria Chambers", "dale bryd", "dan wood", "dan oliver"];
+words.sort();
+console.log(words);
+
+let input = document.querySelector(".texta");
+let suggestion = document.querySelector(".predict");
+const enterKey = 13;
+const tabkey = 9;
+
+window.onload = () => {
+  input.value = "";
+  clearSuggestion();
+};
+const clearSuggestion = () => {
+  suggestion.innerHTML = "";
+};
+
+const caseCheck = (word) => {
+  word = word.split("");
+  let inp = input.value;
+  for (let i in inp) {
+    if (inp[i] === word[i]) {
+      continue;
+    } else if (inp[i].toUpperCase() === word[i]) {
+      word.splice(i, 1, word[i].toLowerCase());
+    } else {
+      word.splice(i, 1, word[i].toUpperCase());
+    }
+  }
+  return word.join("");
+};
+
+input.addEventListener("input", (e) => {
+  clearSuggestion();
+  let regex = new RegExp("^" + input.value, "i");
+  for (let i in words) {
+    if (regex.test(words[i]) && input.value !== "") {
+      words[i] = caseCheck(words[i]);
+      suggestion.innerHTML = words[i];
+      break;
+    }
+  }
+});
+
+input.addEventListener("keydown", (e) => {
+  if (
+    e.keyCode == enterKey ||
+    (e.keyCode == tabkey && suggestion.innerText != "")
+  ) {
+    e.preventDefault();
+    input.value = suggestion.innerText;
+    clearSuggestion();
+  }
+});
+submit.addEventListener("click", (e) => {
+  let name = false;
+  e.preventDefault();
+  console.log(input.value);
+  for (let i = 0; i < words.length; i++) {
+    if (names[i].toLocaleLowerCase() === input.value.toLocaleLowerCase()) {
+      name = true;
+    }
+  }
+  if (text.value !== "" && name === true) {
+    submit.style.backgroundColor = "green";
+    submit.textContent = "sent";
+  } else if (text.value === "" && name === true) {
+    submit.style.backgroundColor = "red";
+    submit.textContent = "error";
+    errmsg.style.display = "inline";
+    errmsg.textContent = "please enter a message";
+  } else if (text.value !== "" && name === false) {
+    submit.style.backgroundColor = "red";
+    submit.textContent = "error";
+    errmsg.style.display = "inline";
+    errmsg.textContent = "please enter a valid user name";
+  } else {
+    submit.style.backgroundColor = "red";
+    submit.textContent = "error";
+    errmsg.style.display = "inline";
+    errmsg.textContent = "please enter a valid user name and enter a message";
+  }
+});
+save.addEventListener("click", () => {
+  window.localStorage.setItem("email", email.checked);
+
+  window.localStorage.setItem("profile", prof.checked);
+
+  window.localStorage.setItem("time", time.value);
+});
+cancle.addEventListener("click", () => {
+  window.localStorage.clear();
+  re();
+});
+
+function re() {
+  checkedE = JSON.parse(localStorage.getItem("email"));
+  email.checked = checkedE;
+  checkedP = JSON.parse(localStorage.getItem("profile"));
+  prof.checked = checkedP;
+  time.value = localStorage.getItem("time");
+}
+re();
