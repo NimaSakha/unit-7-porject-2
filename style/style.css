@@ -1,7 +1,9 @@
 * {
   margin: 0;
 }
-
+body {
+  width: 100%;
+}
 /* main */
 .part {
   font-family: "Roboto", sans-serif;
